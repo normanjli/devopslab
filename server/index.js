@@ -18,7 +18,7 @@ rollbar.log('Hello world!')
 app.use(express.json()); // When we want to be able to accept JSON.
 
 app.get(`/`, (req,res)=>{
-  res.sendFile(`./client/index.html`)
+  res.sendFile(path.join(__dirname)`../client/index.html`)
 })
 
 app.use(express.static(`client`))
