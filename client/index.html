@@ -57,7 +57,7 @@ const createDrink = (drink) =>{
 }
 
       document.getElementById("complimentButton").onclick = function () {
-        axios.get("http://localhost:4000/api/compliment/")
+        axios.get("/api/compliment/")
             .then(function (response) {
               const data = response.data;
               alert(data);
@@ -71,7 +71,7 @@ const createDrink = (drink) =>{
           document.getElementById(`message`).innerText= `Fortune must have text`
           return
         }
-        axios.post(`http://localhost:4000/api/fortune`, {fortune})
+        axios.post(`/api/fortune`, {fortune})
         .then((res)=>{
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Successfully Submitted fortune`
@@ -80,21 +80,21 @@ const createDrink = (drink) =>{
       document.getElementById(`randFortune`).onclick = (e) =>{
         e.preventDefault()
         fortunedisplay.innerHTML = ``
-        axios.get(`http://localhost:4000/api/fortune`)
+        axios.get(`/api/fortune`)
         .then(res =>{
           const fortune = res.data
           createFortune(fortune)
         }).catch(err=>console.log(err))
       }
       const deleteFortune=(id)=>{
-        axios.delete(`http://localhost:4000/api/fortune/${id}`)
+        axios.delete(`/api/fortune/${id}`)
         .then((res)=>{
           document.getElementById(`message`).innerText=``
           document.getElementById(`message`).innerText= `Successfully Deleted fortune`
           document.querySelector(`.fortune-card`).remove()
         })
       }
-      const updatefortune= (id, type) => axios.put(`http://localhost:4000/api/fortune/${id}`, {type})
+      const updatefortune= (id, type) => axios.put(`/api/fortune/${id}`, {type})
       .then((res)=>{
         console.log(res.data)
         let {rating} = res.data
