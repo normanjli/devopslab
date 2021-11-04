@@ -16,7 +16,7 @@ var rollbar = new Rollbar({
 
 app.get(`/`, (req,res)=>{
   res.sendFile(path.join(__dirname,`../client/index.html`))
-  rollbar.info(`user accessed`)
+  rollbar.log(`user accessed`)
 })
 
 app.use(express.static(`client`))
