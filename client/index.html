@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+    <link rel = "stylesheet" src="./styles.css"/>
+  </head>
+  <body class="container">
+    <button id="complimentButton">Get a compliment</button>
+    <main>
+    
+    <form id=fortuneSubmit>
+      <h2>Enter a fortune here</h2>
+      <input id="fortuneText" type = "text" placeholder="enter a fortune to be added to our database">
+      <input type="submit" value = "Submit">
+      <button id = 'randFortune'>Get a random fortune</button>
+      <h3 id="message"></h3>
+    </form>
+    <div id=fortuneapi>
+      <h2>Make Requests to the Cocktails API</h2>
+      <button id = 'randomAPI'>Get a random drink</button>
+      <h3 id="message"></h3>
+    </div>
+    <section id='fortunedisplay'></section>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      const fortunedisplay = document.getElementById(`fortunedisplay`)
+      const createFortune = (fortune) =>{
+        console.log(fortune)
+        const fortuneCard = document.createElement('div')
+        fortuneCard.classList.add('fortune-card')
+
+        fortuneCard.innerHTML = `
+          <h2 class="fortune">${fortune.text}</h2>
+          <div class="btns-container">
+            <button onclick="updatefortune(${fortune.id}, 'minus')">-</button>
+            <p class="movie-rating">${fortune.rating} stars</p>
+            <button onclick="updatefortune(${fortune.id}, 'plus')">+</button>
+          </div>
+          <button onclick="deleteFortune(${fortune.id})">delete</button>`
+
+
+    fortunedisplay.appendChild(fortuneCard)
+}
+const createDrink = (drink) =>{
+  const drinkCard = document.createElement(`div`)
+  drinkCard.classList.add(`fortune-card`)
+  let ingredients = []
+
+  drinkCard.innerHTML = `
+    <img class = "drink-img"src= "${drink.strDrinkThumb}">
+    <h2 class="drink">${drink.strDrink}</h2>
+    <br>
+    <br>
+    `
+  fortunedisplay.appendChild(drinkCard)
+  //planned to do more with thios but ran out of time. to do add drinks ingredients/instructions
+}
+
+      document.getElementById("complimentButton").onclick = function () {
+        axios.get("http://localhost:4000/api/compliment/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      document.getElementById(`fortuneSubmit`).onsubmit = (e) =>{
+        e.preventDefault()
+        let fortune = document.getElementById(`fortuneText`).value
+        if(fortune === ``){
+          document.getElementById(`message`).innertext=``
+          document.getElementById(`message`).innerText= `Fortune must have text`
+          return
+        }
+        axios.post(`http://localhost:4000/api/fortune`, {fortune})
+        .then((res)=>{
+          document.getElementById(`message`).innertext=``
+          document.getElementById(`message`).innerText= `Successfully Submitted fortune`
+        }).catch(err=>console.log(err))
+      }
+      document.getElementById(`randFortune`).onclick = (e) =>{
+        e.preventDefault()
+        fortunedisplay.innerHTML = ``
+        axios.get(`http://localhost:4000/api/fortune`)
+        .then(res =>{
+          const fortune = res.data
+          createFortune(fortune)
+        }).catch(err=>console.log(err))
+      }
+      const deleteFortune=(id)=>{
+        axios.delete(`http://localhost:4000/api/fortune/${id}`)
+        .then((res)=>{
+          document.getElementById(`message`).innerText=``
+          document.getElementById(`message`).innerText= `Successfully Deleted fortune`
+          document.querySelector(`.fortune-card`).remove()
+        })
+      }
+      const updatefortune= (id, type) => axios.put(`http://localhost:4000/api/fortune/${id}`, {type})
+      .then((res)=>{
+        console.log(res.data)
+        let {rating} = res.data
+        if (!!rating){
+          if (rating===10){
+            document.getElementById(`message`).innerText=``
+            document.getElementById(`message`).innerText=`Max Rating is ten`
+            document.getElementById(`fortunedisplay`).innerText=``
+            createFortune(res.data)
+          return
+        }
+        document.getElementById(`message`).innerText=``
+        document.getElementById(`message`).innerText=`Rating Updated`
+        document.getElementById(`fortunedisplay`).innerText=``
+        createFortune(res.data)
+        }
+        else if(!rating){
+          document.getElementById(`message`).innerText=``
+          document.getElementById(`message`).innerText= res.data
+          document.getElementById(`fortunedisplay`).innerText=``
+        }
+      })
+      document.getElementById(`randomAPI`).onclick =()=>{
+        axios.get(`https://www.thecocktaildb.com/api/json/v1/1/random.php`)
+        .then(res =>{
+          let {drinks} = res.data
+          let drink = drinks.pop()
+          console.log(drink)
+          createDrink(drink)
+        })
+      }
+
+    </script>
+</main>
+</body>
+</html>
