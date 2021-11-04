@@ -46,12 +46,14 @@ app.post("/api/fortune", (req,res)=>{
   fortunes.push(fortuneObj)
   res.status(200).send(fortunes)
   fortID++
+  rollbar.log(`posted a fortune`)
 })
 app.get("/api/fortune",(req,res)=>{
   if (fortunes.length>0){
     res.status(200).send(fortunes[Math.floor(Math.random()*fortunes.length)])
   }else{
     res.status(400).send(`add some fortunes first~`)
+    rollbar.error(`no fortunes yet`)
   }
 })
 app.delete(`/api/fortune/:id`, (req,res)=>{
@@ -65,6 +67,7 @@ app.put(`/api/fortune/:id`, (req,res)=>{
   let index =fortunes.findIndex(e=> e.id ===+id)
   if (index===-1){
     res.status(400).send(`cant find`)
+    rollbar.critical(`something went wrong, cant find the id`)
   }
   let {type}=req.body
   if (type === `minus`){
