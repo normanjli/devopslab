@@ -15,5 +15,13 @@
     "rollbar": "^2.24.0"
   },
   "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/normanjli/devopslab.git"
+  },
+  "bugs": {
+    "url": "https://github.com/normanjli/devopslab/issues"
+  },
+  "homepage": "https://github.com/normanjli/devopslab#readme",
   "description": ""
 }
