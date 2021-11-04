@@ -49,10 +49,10 @@ const createDrink = (drink) =>{
   drinkCard.innerHTML = `
     <a href="https://www.thecocktaildb.com/drink/${drink.idDrink}">
     <img class = "drink-img"src= "${drink.strDrinkThumb}">
+    </a>
     <h2 class="drink">${drink.strDrink}</h2>
     <br>
     <br>
-    </a>
     `
   fortunedisplay.appendChild(drinkCard)
   //planned to do more with thios but ran out of time. to do add drinks ingredients/instructions
