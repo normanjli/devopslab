@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const path = require('path')
-const fortunes = []
 const app = express();
+const path = require('path')
 app.use(express.json()); // When we want to be able to accept JSON.
 app.use(cors());
+app.use(express.static(`client`))
 
+const fortunes = []
 var Rollbar = require('rollbar')
 var rollbar = new Rollbar({
   accessToken: 'ccec597967d94d0e8068ab34290f3624',
@@ -19,7 +20,6 @@ app.get(`/`, (req,res)=>{
   res.sendFile(path.join(__dirname,`../client/index.html`))
 })
 
-app.use(express.static(`client`))
 
 let fortID = 1
 
