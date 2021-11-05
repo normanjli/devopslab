@@ -75,6 +75,7 @@ const createDrink = (drink) =>{
         }
         axios.post(`/api/fortune`, {fortune})
         .then((res)=>{
+          console.log(res)
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Successfully Submitted fortune`
         }).catch((err)=>{
