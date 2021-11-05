@@ -130,5 +130,5 @@ input[type='text'] {
     object-fit: contain;
 }
 h3{
-    display:hidden;
+    visibility:hidden;
 }
