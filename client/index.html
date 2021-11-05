@@ -105,7 +105,9 @@ const createDrink = (drink) =>{
         axios.delete(`/api/fortune/${id}`)
         .then((res)=>{
           message.innerText=``
+          message.toggleAttribute('visibility')
           message.innerText= `Successfully Deleted fortune`
+          setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           document.querySelector(`.fortune-card`).remove()
         })
       }
@@ -116,19 +118,25 @@ const createDrink = (drink) =>{
         if (!!rating){
           if (rating===10){
             message.innerText=``
+            message.toggleAttribute('visibility')
             message.innerText=`Max Rating is ten`
+            setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
             document.getElementById(`fortunedisplay`).innerText=``
             createFortune(res.data)
           return
         }
         message.innerText=``
+        message.toggleAttribute('visibility')
         message.innerText=`Rating Updated`
+        setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
         document.getElementById(`fortunedisplay`).innerText=``
         createFortune(res.data)
         }
         else if(!rating){
           message.innerText=``
+          message.toggleAttribute('visibility')
           message.innerText= res.data
+          setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           document.getElementById(`fortunedisplay`).innerText=``
         }
       })
