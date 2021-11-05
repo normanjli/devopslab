@@ -79,10 +79,6 @@ const createDrink = (drink) =>{
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Successfully Submitted fortune`
           }
-          else{
-            document.getElementById(`message`).innertext=``
-            document.getElementById(`message`).innerText= `Add Some Fortunes first`
-          }
         }).catch((err)=>console.log(err))
       }
       document.getElementById(`randFortune`).onclick = (e) =>{
@@ -90,8 +86,13 @@ const createDrink = (drink) =>{
         fortunedisplay.innerHTML = ``
         axios.get(`/api/fortune`)
         .then(res =>{
+          if(res.status===200){
           const fortune = res.data
           createFortune(fortune)
+          }else{
+            document.getElementById(`message`).innertext=``
+            document.getElementById(`message`).innerText= `Add Some Fortunes first`
+          }
         }).catch(err=>console.log(err))
       }
       const deleteFortune=(id)=>{
