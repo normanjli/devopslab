@@ -70,18 +70,18 @@ const createDrink = (drink) =>{
         let fortune = document.getElementById(`fortuneText`).value
         if(fortune === ``){
           message.innertext=``
-          message.setAttribute('visibility','visible')
+          message.style.visibility='visible'
           message.innerText= `Fortune must have text`
-          setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+          setTimeout(1000, ()=> message.style.visibility=`hidden`)
           return
         }
         axios.post(`/api/fortune`, {fortune})
         .then((res)=>{
           if(res.status = 200){
           message.innertext=``
-          message.setAttribute('visibility','visible')
+          message.style.visibility='visible'
           message.innerText= `Successfully Submitted fortune`
-          setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+          setTimeout(1000, ()=> message.style.visibility=`hidden`)
           }
         }).catch((err)=>console.log(err))
       }
@@ -95,9 +95,9 @@ const createDrink = (drink) =>{
           createFortune(fortune)
           }else{
             message.innertext=``
-            message.setAttribute('visibility','visible')
+            message.style.visibility='visible'
             message.innerText= `Add Some Fortunes first`
-            setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+            setTimeout(1000, ()=> message.style.visibility=`hidden`)
           }
         }).catch(err=>console.log(err))
       }
@@ -105,9 +105,9 @@ const createDrink = (drink) =>{
         axios.delete(`/api/fortune/${id}`)
         .then((res)=>{
           message.innerText=``
-          message.setAttribute('visibility','visible')
+          message.style.visibility='visible'
           message.innerText= `Successfully Deleted fortune`
-          setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+          setTimeout(1000, ()=> message.style.visibility=`hidden`)
           document.querySelector(`.fortune-card`).remove()
         })
       }
@@ -118,25 +118,25 @@ const createDrink = (drink) =>{
         if (!!rating){
           if (rating===10){
             message.innerText=``
-            message.setAttribute('visibility','visible')
+            message.style.visibility='visible'
             message.innerText=`Max Rating is ten`
-            setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+            setTimeout(1000, ()=> message.style.visibility=`hidden`)
             document.getElementById(`fortunedisplay`).innerText=``
             createFortune(res.data)
           return
         }
         message.innerText=``
-        message.setAttribute('visibility','visible')
+        message.style.visibility='visible'
         message.innerText=`Rating Updated`
-        setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+        setTimeout(1000, ()=> message.style.visibility=`hidden`)
         document.getElementById(`fortunedisplay`).innerText=``
         createFortune(res.data)
         }
         else if(!rating){
           message.innerText=``
-          message.setAttribute('visibility','visible')
+          message.style.visibility='visible'
           message.innerText= res.data
-          setTimeout(1000, ()=> message.setAttribute('visibility',`hidden`))
+          setTimeout(1000, ()=> message.style.visibility=`hidden`)
           document.getElementById(`fortunedisplay`).innerText=``
         }
       })
