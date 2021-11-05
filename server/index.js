@@ -56,7 +56,7 @@ app.get("/api/fortune",(req,res)=>{
     res.status(200).send(fortunes[Math.floor(Math.random()*fortunes.length)])
   }else{
     rollbar.error(`no fortunes yet`)
-    res.status(404).send(`add some fortunes first`)
+    res.status(204).send(`add some fortunes first`)
   }
 })
 app.delete(`/api/fortune/:id`, (req,res)=>{

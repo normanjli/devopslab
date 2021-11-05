@@ -77,7 +77,7 @@ const createDrink = (drink) =>{
         .then((res)=>{
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Successfully Submitted fortune`
-        }).catch(err=>{
+        }).catch((err)=>{
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Add Some Fortunes first`
         })
