@@ -77,7 +77,10 @@ const createDrink = (drink) =>{
         .then((res)=>{
           document.getElementById(`message`).innertext=``
           document.getElementById(`message`).innerText= `Successfully Submitted fortune`
-        }).catch(err=>console.log(err))
+        }).catch(err=>{
+          document.getElementById(`message`).innertext=``
+          document.getElementById(`message`).innerText= `Add Some Fortunes first`
+        })
       }
       document.getElementById(`randFortune`).onclick = (e) =>{
         e.preventDefault()
