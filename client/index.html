@@ -72,7 +72,7 @@ const createDrink = (drink) =>{
           message.innertext=``
           message.style.visibility='visible'
           message.innerText= `Fortune must have text`
-          setTimeout(1000, ()=> message.style.visibility=`hidden`)
+          setTimeout(()=> message.style.visibility=`hidden`,1000)
           return
         }
         axios.post(`/api/fortune`, {fortune})
@@ -81,7 +81,7 @@ const createDrink = (drink) =>{
           message.innertext=``
           message.style.visibility='visible'
           message.innerText= `Successfully Submitted fortune`
-          setTimeout(1000, ()=> message.style.visibility=`hidden`)
+          setTimeout(()=> message.style.visibility=`hidden`,1000)
           }
         }).catch((err)=>console.log(err))
       }
@@ -97,7 +97,7 @@ const createDrink = (drink) =>{
             message.innertext=``
             message.style.visibility='visible'
             message.innerText= `Add Some Fortunes first`
-            setTimeout(1000, ()=> message.style.visibility=`hidden`)
+            setTimeout(()=> message.style.visibility=`hidden`,1000)
           }
         }).catch(err=>console.log(err))
       }
@@ -107,7 +107,7 @@ const createDrink = (drink) =>{
           message.innerText=``
           message.style.visibility='visible'
           message.innerText= `Successfully Deleted fortune`
-          setTimeout(1000, ()=> message.style.visibility=`hidden`)
+          setTimeout(()=> message.style.visibility=`hidden`,1000)
           document.querySelector(`.fortune-card`).remove()
         })
       }
@@ -120,7 +120,7 @@ const createDrink = (drink) =>{
             message.innerText=``
             message.style.visibility='visible'
             message.innerText=`Max Rating is ten`
-            setTimeout(1000, ()=> message.style.visibility=`hidden`)
+            setTimeout(()=> message.style.visibility=`hidden`,1000)
             document.getElementById(`fortunedisplay`).innerText=``
             createFortune(res.data)
           return
@@ -128,7 +128,7 @@ const createDrink = (drink) =>{
         message.innerText=``
         message.style.visibility='visible'
         message.innerText=`Rating Updated`
-        setTimeout(1000, ()=> message.style.visibility=`hidden`)
+        setTimeout(()=> message.style.visibility=`hidden`,1000)
         document.getElementById(`fortunedisplay`).innerText=``
         createFortune(res.data)
         }
@@ -136,7 +136,7 @@ const createDrink = (drink) =>{
           message.innerText=``
           message.style.visibility='visible'
           message.innerText= res.data
-          setTimeout(1000, ()=> message.style.visibility=`hidden`)
+          setTimeout(()=> message.style.visibility=`hidden`,1000)
           document.getElementById(`fortunedisplay`).innerText=``
         }
       })
