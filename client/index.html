@@ -18,11 +18,11 @@
     <div id=fortuneapi>
       <h2>Make Requests to the Cocktails API</h2>
       <button id = 'randomAPI'>Get a random drink</button>
-      <h3 id="message"></h3>
     </div>
     <section id='fortunedisplay'></section>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
+      let message = message
       const fortunedisplay = document.getElementById(`fortunedisplay`)
       const createFortune = (fortune) =>{
         console.log(fortune)
@@ -69,15 +69,15 @@ const createDrink = (drink) =>{
         e.preventDefault()
         let fortune = document.getElementById(`fortuneText`).value
         if(fortune === ``){
-          document.getElementById(`message`).innertext=``
-          document.getElementById(`message`).innerText= `Fortune must have text`
+          message.innertext=``
+          message.innerText= `Fortune must have text`
           return
         }
         axios.post(`/api/fortune`, {fortune})
         .then((res)=>{
           if(res.status = 200){
-          document.getElementById(`message`).innertext=``
-          document.getElementById(`message`).innerText= `Successfully Submitted fortune`
+          message.innertext=``
+          message.innerText= `Successfully Submitted fortune`
           }
         }).catch((err)=>console.log(err))
       }
@@ -90,16 +90,18 @@ const createDrink = (drink) =>{
           const fortune = res.data
           createFortune(fortune)
           }else{
-            document.getElementById(`message`).innertext=``
-            document.getElementById(`message`).innerText= `Add Some Fortunes first`
+            message.toggleAttribute('visibility')
+            message.innertext=``
+            message.innerText= `Add Some Fortunes first`
+            setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           }
         }).catch(err=>console.log(err))
       }
       const deleteFortune=(id)=>{
         axios.delete(`/api/fortune/${id}`)
         .then((res)=>{
-          document.getElementById(`message`).innerText=``
-          document.getElementById(`message`).innerText= `Successfully Deleted fortune`
+          message.innerText=``
+          message.innerText= `Successfully Deleted fortune`
           document.querySelector(`.fortune-card`).remove()
         })
       }
@@ -109,20 +111,20 @@ const createDrink = (drink) =>{
         let {rating} = res.data
         if (!!rating){
           if (rating===10){
-            document.getElementById(`message`).innerText=``
-            document.getElementById(`message`).innerText=`Max Rating is ten`
+            message.innerText=``
+            message.innerText=`Max Rating is ten`
             document.getElementById(`fortunedisplay`).innerText=``
             createFortune(res.data)
           return
         }
-        document.getElementById(`message`).innerText=``
-        document.getElementById(`message`).innerText=`Rating Updated`
+        message.innerText=``
+        message.innerText=`Rating Updated`
         document.getElementById(`fortunedisplay`).innerText=``
         createFortune(res.data)
         }
         else if(!rating){
-          document.getElementById(`message`).innerText=``
-          document.getElementById(`message`).innerText= res.data
+          message.innerText=``
+          message.innerText= res.data
           document.getElementById(`fortunedisplay`).innerText=``
         }
       })
