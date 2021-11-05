@@ -22,7 +22,7 @@
     <section id='fortunedisplay'></section>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
-      let message = message
+      let message = document.getElementById(`message`)
       const fortunedisplay = document.getElementById(`fortunedisplay`)
       const createFortune = (fortune) =>{
         console.log(fortune)
@@ -70,14 +70,18 @@ const createDrink = (drink) =>{
         let fortune = document.getElementById(`fortuneText`).value
         if(fortune === ``){
           message.innertext=``
+          message.toggleAttribute('visibility')
           message.innerText= `Fortune must have text`
+          setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           return
         }
         axios.post(`/api/fortune`, {fortune})
         .then((res)=>{
           if(res.status = 200){
           message.innertext=``
+          message.toggleAttribute('visibility')
           message.innerText= `Successfully Submitted fortune`
+          setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           }
         }).catch((err)=>console.log(err))
       }
@@ -90,8 +94,8 @@ const createDrink = (drink) =>{
           const fortune = res.data
           createFortune(fortune)
           }else{
-            message.toggleAttribute('visibility')
             message.innertext=``
+            message.toggleAttribute('visibility')
             message.innerText= `Add Some Fortunes first`
             setTimeout(1000, ()=> message.toggleAttribute(`visibility`))
           }
